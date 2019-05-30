@@ -1,4 +1,4 @@
 {
-  "idFields": ["PMID"],
+  "idField": "PMID",
   "contentFields": ["TI", "AB"]
 }
