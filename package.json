@@ -1,0 +1,20 @@
+{
+  "name": "lipa-db",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/cyclecycle/lipa-db.git",
+  "author": "Nick Morley <nick.morley111@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "koa": "^2.7.0",
+    "sqlite-to-rest": "github:olsonpm/sqlite-to-rest"
+  },
+  "devDependencies": {
+    "axios": "^0.19.0",
+    "jest": "^24.8.0",
+    "jest-extended": "^0.11.1"
+  }
+}
