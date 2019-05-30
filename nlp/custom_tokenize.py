@@ -7,6 +7,7 @@ from spacy.attrs import ORTH, LEMMA, TAG
 
 prefixes = [r'\((?=[^\)]+$)']
 
+
 def custom_tokenizer(nlp):
     prefix_re = compile_prefix_regex(prefixes)
     suffix_re = compile_suffix_regex(nlp.Defaults.suffixes)

@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from config import config
-import util
+from util import util
 from parse_corpus import parse_corpus
 
 cwd = util.get_file_directory(__file__)

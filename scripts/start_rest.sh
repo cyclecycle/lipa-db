@@ -1,1 +1,1 @@
-node skeleton.js
+node scripts/start_rest.js

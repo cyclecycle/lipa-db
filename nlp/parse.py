@@ -2,6 +2,7 @@ import re
 import spacy
 from nlp.custom_tokenize import custom_tokenizer
 from spacy.tokens import Doc
+import config
 
 
 REGEXES = {
@@ -19,7 +20,8 @@ SPACY_DISABLE = ['ner', 'entity_ruler', 'textcat', 'sentencizer', 'merge_noun_ch
 class Parser():
 
     def __init__(self):
-        self.nlp = spacy.load('en_core_web_sm', disable=SPACY_DISABLE)
+        spacy_model = config['spacy_model']
+        self.nlp = spacy.load(spacy_model, disable=SPACY_DISABLE)
         self.nlp.tokenizer = custom_tokenizer(self.nlp)
 
     def parse(self, text, resolve_corefs=False, resolve_acros=False, coref_clusters=False):

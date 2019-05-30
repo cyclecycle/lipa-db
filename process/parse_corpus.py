@@ -1,8 +1,7 @@
 import os
-import json
 from config import config
 from nlp import parse
-import util
+from util import util
 
 
 cwd = util.get_file_directory(__file__)
