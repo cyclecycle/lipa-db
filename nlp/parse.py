@@ -1,6 +1,6 @@
 import re
 import spacy
-from custom_tokenize import custom_tokenizer
+from nlp.custom_tokenize import custom_tokenizer
 from spacy.tokens import Doc
 
 

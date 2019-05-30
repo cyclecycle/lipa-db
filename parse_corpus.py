@@ -1,27 +1,18 @@
 import os
 import json
-import parse
 from config import config
+from nlp import parse
+import util
 
 
-cwd = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+cwd = util.get_file_directory(__file__)
 parser = parse.Parser()
-
-
-# def is_sentence_an_unbroken_tree(sentence):
-#     sentence = sentence.as_doc()
-#     trees = list(parse.separate_trees(sentence))
-#     n_trees = len(trees)
-#     if n_trees == 1:
-#         return True
-#     return False
 
 
 def get_parsed_sentences(text):
     doc = parser.parse(text)
     sentences = []
     for sentence in doc.sents:
-        # sentence_is_an_unbroken_tree = is_sentence_an_unbroken_tree(sentence)
         sentences.append(sentence)
     return sentences
 
@@ -39,13 +30,14 @@ def spacy_token_to_json(token):
     return data
 
 
-def spacy_sentence_to_json(sentence):
+def spacy_sentence_to_json(sentence, data={}):
     tokens = [spacy_token_to_json(token) for token in sentence]
     data = {
         'text': sentence.text,
         'start': sentence.start_char,
         'length': len(sentence.text),
-        'tokens': tokens
+        'tokens': tokens,
+        **data
     }
     return data
 
@@ -56,12 +48,13 @@ def parse_record(record, id_field, content_fields):
         'sections': []
     }
     content_sections = [record[field] for field in content_fields]
-    for content in content_sections:
+    for content, field in zip(content_sections, content_fields):
         sentences = get_parsed_sentences(content)
-        sentences = [spacy_sentence_to_json(sent) for sent in sentences]
+        sentences = [spacy_sentence_to_json(sent, data={'content_field': field}) for sent in sentences]
         parsed_record['sections'].append({
             'text': content,
-            'sentence': sentences
+            'sentences': sentences,
+            'content_field': field
         })
     return parsed_record
 
@@ -73,15 +66,9 @@ def parse_corpus(corpus, corpus_fields):
     return parsed_corpus
 
 
-def load_json(path):
-    with open(path, 'r') as f:
-        data = json.load(f)
-    return data
-
-
 if __name__ == '__main__':
-    corpus_path = os.path.join(cwd, '../mock/corpus.json')
-    corpus_schema_path = os.path.join(cwd, '../mock/corpus_fields.json')
-    corpus = load_json(corpus_path)
-    corpus_fields = load_json(corpus_schema_path)
+    corpus_path = os.path.join(cwd, 'mock/corpus.json')
+    corpus_schema_path = os.path.join(cwd, 'mock/corpus_fields.json')
+    corpus = util.load_json(corpus_path)
+    corpus_fields = util.load_json(corpus_schema_path)
     parsed_corpus = parse_corpus(corpus, corpus_fields)

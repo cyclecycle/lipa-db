@@ -1,13 +1,13 @@
 CREATE TABLE documents (
-    # Contains only the id and content fields specified in the provided corpus_schema
+    -- Contains only the id and content fields specified in the provided corpus_schema
     data blob
 );
 
 CREATE TABLE sentences (
     document_id integer,
     sentence_text text,
-    data blob  # Contains list of tokens and their linguistic features
-    foreign key(document_id) references documents(rowId),
+    data blob,  -- Contains list of tokens and their linguistic features
+    foreign key(document_id) references documents(rowId)
 );
 
 CREATE TABLE patterns (
