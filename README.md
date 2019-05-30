@@ -1,9 +1,9 @@
-# lipa-db
+# LIPA-DB
 
 Database and backend functionality for LIPA.
 
 - SQLite databases for test and prod environments
-- Exposes them through a REST interface
+- Exposes DBs through REST interface
 - Contains mock data
 - Processes for parsing and inserting documents into the DB
 
@@ -17,7 +17,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Run any python file from the root directory:
+Run any python file from the root directory with:
 
 ```bash
 PYTHONPATH="." python /path/to/file
@@ -34,15 +34,15 @@ npm install
 Activate the REST interface:
 
 ```bash
-node rest.js
+node scripts/start_rest.js
 ```
 
-Tests (ensure REST started):
+Tests (ensure REST started first):
 
 ```
 npm run test
 ```
 
-## Build with
+## Built with
 
 - sqlite-to-rest
