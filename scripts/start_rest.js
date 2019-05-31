@@ -6,7 +6,8 @@
 //---------//
 
 const Koa = require('koa')
-  , sqliteToRest = require('sqlite-to-rest');
+const sqliteToRest = require('sqlite-to-rest');
+const cors = require('@koa/cors');
 
 
 //------//
@@ -15,7 +16,7 @@ const Koa = require('koa')
 
 const dbPath = 'databases/test.db'
   , getSqliteRouter = sqliteToRest.getSqliteRouter
-  , PORT = 8085;
+  , PORT = 8086;
 
 
 //------//
@@ -28,6 +29,7 @@ getSqliteRouter({ dbPath })
   .then(router => {
     app.use(router.routes())
       .use(router.allowedMethods())
+      .use(cors({origin: '*'}))
       .listen(PORT);
 
     console.log(`Listening on port: ${PORT}`);

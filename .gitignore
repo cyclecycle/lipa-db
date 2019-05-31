@@ -83,3 +83,4 @@ venv.bak/
 # JS
 *.lock
 node_modules/
+*lock*

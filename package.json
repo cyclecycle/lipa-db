@@ -9,6 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "koa": "^2.7.0",
     "sqlite-to-rest": "github:olsonpm/sqlite-to-rest"
   },
