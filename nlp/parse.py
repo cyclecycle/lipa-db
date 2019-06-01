@@ -2,7 +2,7 @@ import re
 import spacy
 from nlp.custom_tokenize import custom_tokenizer
 from spacy.tokens import Doc
-import config
+from config import config
 
 
 REGEXES = {

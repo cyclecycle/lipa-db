@@ -1,5 +1,6 @@
 config = {
     'mode': 'test',
+    'db_rest_url': 'http://localhost:8086/',
     'db_paths': {
         'test': 'databases/test.db',
         'prod': 'databases/prod.db'

@@ -8,8 +8,15 @@ CREATE TABLE sentences (
     id integer primary key,
     document_id integer,
     sentence_text text,
-    data blob,  -- Contains list of tokens and their linguistic features
+    data blob,
     foreign key(document_id) references documents(id)
+);
+
+CREATE TABLE tokens (
+    id integer primary key,
+    sentence_id integer,
+    data blob,
+    foreign key(sentence_id) references sentences(id)
 );
 
 CREATE TABLE patterns (

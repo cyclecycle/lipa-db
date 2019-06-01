@@ -18,15 +18,21 @@ def insert_parsed_corpus(parsed_corpus):
             cur.execute('insert into documents(data) values (?)', (document,))
             document_id = cur.lastrowid
             for sentence in sentences:
+                tokens = sentence.pop('tokens')
                 text = sentence['text']
                 sentence = util.json_string(sentence)
                 insert_query = 'insert into sentences(document_id, sentence_text, data) values (?, ?, ?)'
                 cur.execute(insert_query, (document_id, text, sentence,))
+                sentence_id = cur.lastrowid
+                for token in tokens:
+                    token = util.json_string(token)
+                    insert_query = 'insert into tokens(sentence_id, data) values (?, ?)'
+                    cur.execute(insert_query, (sentence_id, token,))
 
 
 if __name__ == '__main__':
-    corpus_path = os.path.join(cwd, 'mock/corpus.json')
-    corpus_fields_path = os.path.join(cwd, 'mock/corpus_fields.json')
+    corpus_path = os.path.join(cwd, '../mock/corpus.json')
+    corpus_fields_path = os.path.join(cwd, '../mock/corpus_fields.json')
     corpus = util.load_json(corpus_path)
     corpus_fields = util.load_json(corpus_fields_path)
     parsed_corpus = parse_corpus(corpus, corpus_fields)
