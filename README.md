@@ -7,6 +7,26 @@ Database and backend functionality for LIPA.
 - Contains mock data
 - Processes for parsing and inserting documents into the DB
 
+## Scripts
+
+Run all scripts from root directory.
+
+### Initialise database
+
+- Overwrites existing /databases/test.db
+- Uses schemas/schema.sql
+- Inserts mock data
+
+```bash
+bash init_test_db.sh
+```
+
+### Start REST server:
+
+```bash
+bash scripts/start_rest.js
+```
+
 ## Development
 
 ### Python
@@ -29,12 +49,6 @@ Install dependencies:
 
 ```bash
 npm install
-```
-
-Activate the REST interface:
-
-```bash
-node scripts/start_rest.js
 ```
 
 Tests (ensure REST started first):
