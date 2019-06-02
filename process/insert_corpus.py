@@ -21,7 +21,7 @@ def insert_parsed_corpus(parsed_corpus):
                 tokens = sentence.pop('tokens')
                 text = sentence['text']
                 sentence = util.json_string(sentence)
-                insert_query = 'insert into sentences(document_id, sentence_text, data) values (?, ?, ?)'
+                insert_query = 'insert into sentences(document_id, text, data) values (?, ?, ?)'
                 cur.execute(insert_query, (document_id, text, sentence,))
                 sentence_id = cur.lastrowid
                 for token in tokens:

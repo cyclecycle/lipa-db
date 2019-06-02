@@ -7,7 +7,7 @@ CREATE TABLE documents (
 CREATE TABLE sentences (
     id integer primary key,
     document_id integer,
-    sentence_text text,
+    text text,
     data blob,
     foreign key(document_id) references documents(id)
 );
@@ -21,7 +21,8 @@ CREATE TABLE tokens (
 
 CREATE TABLE patterns (
     id integer primary key,
-    data blob
+    name text,
+    pattern_data blob
 );
 
 CREATE TABLE training_examples (
