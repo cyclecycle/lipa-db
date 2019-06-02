@@ -1,0 +1,1 @@
+PYTHONPATH="." python process/insert_corpus.py
