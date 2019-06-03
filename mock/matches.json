@@ -1,0 +1,23 @@
+[
+  {
+    "pattern_id": 1,
+    "sentence_id": 2,
+    "match_data": {
+      "slot1": [
+        {
+          "token_id": 16
+        }
+      ],
+      "slot2": [
+        {
+          "token_id": 17
+        }
+      ],
+      "slot3": [
+        {
+          "token_id": 18
+        }
+      ]
+    }
+  }
+]

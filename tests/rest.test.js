@@ -48,11 +48,14 @@ test("Inserts a pattern", () => {
   const url = global.url
   const queryUrl = `${url}/patterns/`
   const patternData = {'some': 'pattern data'}
-  const payload = {'data': JSON.stringify(patternData)}
+  const payload = {
+    'name': 'pattern 1',
+    'pattern_data': JSON.stringify(patternData),
+  }
   return axios.post(queryUrl, payload)
     .then(response => {
       const item = response.data
-      const itemData = JSON.parse(item.data)
+      const itemData = JSON.parse(item.pattern_data)
       expect(item).toEqual(expect.toBeObject(item))
       expect(itemData).toEqual(expect.toBeObject())
     })
