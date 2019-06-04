@@ -15,9 +15,9 @@ url = config['db_rest_url']
 target_dir = 'databases/record_examples'
 
 for table in tables:
-    query = '{}/?id=1'.format(table)
-    query_url = '{0}{1}'.format(url, query)
-    response = requests.get(query_url)
+    query_url = '{0}{1}'.format(url, table)
+    query_params = {'id': '1'}
+    response = requests.get(query_url, query_params)
     try:
         data = response.json()
         json_string = json.dumps(data, ensure_ascii=False, indent=2)

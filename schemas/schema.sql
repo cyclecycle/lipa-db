@@ -22,16 +22,16 @@ CREATE TABLE tokens (
 CREATE TABLE patterns (
     id integer primary key,
     name text,
-    pattern_data blob
+    seed_example_id integer,
+    pattern_data blob,
+    foreign key(seed_example_id) references training_examples(id)
 );
 
 CREATE TABLE training_examples (
     id integer primary key,
     data blob,
-    pos_or_neg boolean,
-    pattern_id integer,
+    pos_or_neg text,
     sentence_id integer,
-    foreign key(pattern_id) references patterns(id),
     foreign key(sentence_id) references sentences(id)
 );
 

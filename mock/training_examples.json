@@ -1,10 +1,34 @@
 [
   {
     "pos_or_neg": "pos",
-    "sentence_id": 2,
+    "sentence_id": 1,
     "slots": [
       {
-        "label": "slot1"
+        "label": "arg1",
+        "tokens": [
+          {
+            "id": 4,
+            "text": "hypothesis"
+          }
+        ]
+      },
+      {
+        "label": "pred",
+        "tokens": [
+          {
+            "id": 5,
+            "text": "was"
+          }
+        ]
+      },
+      {
+        "label": "arg2",
+        "tokens": [
+          {
+            "id": 6,
+            "text": "introduced"
+          }
+        ]
       }
     ]
   }
