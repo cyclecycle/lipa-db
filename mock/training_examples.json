@@ -1,0 +1,11 @@
+[
+  {
+    "pos_or_neg": "pos",
+    "sentence_id": 2,
+    "slots": [
+      {
+        "label": "slot1"
+      }
+    ]
+  }
+]

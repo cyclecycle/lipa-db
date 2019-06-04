@@ -78,7 +78,7 @@ venv.bak/
 .mypy_cache/
 
 # DB
-databases/
+*.db
 
 # JS
 *.lock
