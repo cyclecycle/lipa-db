@@ -6,8 +6,8 @@
 //---------//
 
 const Koa = require('koa')
-const sqliteToRest = require('sqlite-to-rest');
-const cors = require('@koa/cors');
+  , sqliteToRest = require('sqlite-to-rest')
+  , cors = require('@koa/cors');
 
 
 //------//
@@ -16,7 +16,7 @@ const cors = require('@koa/cors');
 
 const dbPath = 'databases/test.db'
   , getSqliteRouter = sqliteToRest.getSqliteRouter
-  , PORT = 8086;
+  , PORT = 8085;
 
 
 //------//

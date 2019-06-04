@@ -4,6 +4,14 @@ CREATE TABLE documents (
     data blob
 );
 
+CREATE TABLE document_linguistic_data (
+    id integer primary key,
+    document_id,
+    spacy_doc blob,
+    spacy_vocab blob,
+    foreign key(document_id) references documents(id)
+);
+
 CREATE TABLE sentences (
     id integer primary key,
     document_id integer,
@@ -12,9 +20,18 @@ CREATE TABLE sentences (
     foreign key(document_id) references documents(id)
 );
 
+CREATE TABLE sentence_linguistic_data (
+    id integer primary key,
+    sentence_id integer,
+    spacy_doc blob,
+    spacy_vocab blob,
+    foreign key(sentence_id) references sentences(id)
+);
+
 CREATE TABLE tokens (
     id integer primary key,
     sentence_id integer,
+    i integer,
     data blob,
     foreign key(sentence_id) references sentences(id)
 );
@@ -23,7 +40,7 @@ CREATE TABLE patterns (
     id integer primary key,
     name text,
     seed_example_id integer,
-    pattern_data blob,
+    role_pattern_instance blob,
     foreign key(seed_example_id) references training_examples(id)
 );
 

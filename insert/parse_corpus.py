@@ -29,18 +29,22 @@ def spacy_token_to_json(token):
         'text': token.text,
         'start': start_idx_in_sent,
         'length': len(token),
-        'features': feature_dict
+        'features': feature_dict,
+        'i': token.i,
     }
     return data
 
 
 def spacy_sentence_to_json(sentence, data={}):
     tokens = [spacy_token_to_json(token) for token in sentence]
+    doc = sentence.as_doc()
     data = {
         'text': sentence.text,
         'start': sentence.start_char,
         'length': len(sentence.text),
         'tokens': tokens,
+        'spacy_doc': doc.to_bytes(),
+        'spacy_vocab': doc.vocab.to_bytes(),
         **data
     }
     return data
@@ -49,7 +53,7 @@ def spacy_sentence_to_json(sentence, data={}):
 def parse_record(record, id_field, content_fields):
     parsed_record = {
         'source_document_id': int(record[id_field]),
-        'sections': []
+        'sections': [],
     }
     content_sections = [record[field] for field in content_fields]
     for content, field in zip(content_sections, content_fields):

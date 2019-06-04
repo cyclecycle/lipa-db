@@ -7,6 +7,7 @@
         "label": "arg1",
         "tokens": [
           {
+            "i": 3,
             "id": 4,
             "text": "hypothesis"
           }
@@ -16,6 +17,7 @@
         "label": "pred",
         "tokens": [
           {
+            "i": 4,
             "id": 5,
             "text": "was"
           }
@@ -25,6 +27,7 @@
         "label": "arg2",
         "tokens": [
           {
+            "i": 5,
             "id": 6,
             "text": "introduced"
           }

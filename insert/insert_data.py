@@ -11,9 +11,9 @@ def insert_patterns(patterns):
     with sqlite3.connect(db_path) as con:
         cur = con.cursor()
         for pattern in patterns:
-            pattern_data = util.json_string(pattern['pattern_data'])
-            query = 'insert into patterns (name, pattern_data) values (?, ?)'
-            cur.execute(query, (pattern['name'], pattern_data,))
+            role_pattern_instance = pattern['role_pattern_instance']
+            query = 'insert into patterns (name, seed_example_id, role_pattern_instance) values (?, ?, ?)'
+            cur.execute(query, (pattern['name'], pattern['seed_example_id'], role_pattern_instance,))
 
 
 def insert_training_examples(training_examples):

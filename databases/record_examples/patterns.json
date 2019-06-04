@@ -2,6 +2,7 @@
   {
     "id": 1,
     "name": "pattern 1",
-    "pattern_data": "{\"role_pattern_class\": \"serialised_python_class_bytes\"}"
+    "seed_example_id": 1,
+    "role_pattern_instance": "bytes"
   }
 ]

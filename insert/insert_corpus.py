@@ -20,14 +20,21 @@ def insert_parsed_corpus(parsed_corpus):
             for sentence in sentences:
                 tokens = sentence.pop('tokens')
                 text = sentence['text']
-                sentence = util.json_string(sentence)
-                insert_query = 'insert into sentences(document_id, text, data) values (?, ?, ?)'
-                cur.execute(insert_query, (document_id, text, sentence,))
+                spacy_doc = sentence.pop('spacy_doc')
+                spacy_vocab = sentence.pop('spacy_vocab')
+                data = util.json_string(sentence)
+                query = 'insert into sentences(document_id, text, data) values (?, ?, ?)'
+                values = (document_id, text, data,)
+                cur.execute(query, values)
                 sentence_id = cur.lastrowid
+                query = 'insert into sentence_linguistic_data(sentence_id, spacy_doc, spacy_vocab) values (?, ?, ?)'
+                values = (sentence_id, sqlite3.Binary(spacy_doc), sqlite3.Binary(spacy_vocab),)
+                cur.execute(query, values)
                 for token in tokens:
+                    token_i = token.pop('i')
                     token = util.json_string(token)
-                    insert_query = 'insert into tokens(sentence_id, data) values (?, ?)'
-                    cur.execute(insert_query, (sentence_id, token,))
+                    query = 'insert into tokens(sentence_id, i, data) values (?, ?, ?)'
+                    cur.execute(query, (sentence_id, token_i, token,))
 
 
 if __name__ == '__main__':

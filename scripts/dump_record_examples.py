@@ -8,6 +8,7 @@ tables = [
     'sentences',
     'tokens',
     'patterns',
+    'training_examples',
 ]
 
 url = config['db_rest_url']
@@ -15,9 +16,10 @@ url = config['db_rest_url']
 target_dir = 'databases/record_examples'
 
 for table in tables:
-    query_url = '{0}{1}'.format(url, table)
-    query_params = {'id': '1'}
-    response = requests.get(query_url, query_params)
+    query = '{}/?id=1'.format(table)
+    query_url = '{0}{1}'.format(url, query)
+    print('Querying:', query_url)
+    response = requests.get(query_url)
     try:
         data = response.json()
         json_string = json.dumps(data, ensure_ascii=False, indent=2)
