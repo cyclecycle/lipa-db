@@ -36,8 +36,8 @@ def spacy_token_to_json(token):
 
 
 def spacy_sentence_to_json(sentence, data={}):
-    tokens = [spacy_token_to_json(token) for token in sentence]
     doc = sentence.as_doc()
+    tokens = [spacy_token_to_json(token) for token in doc]
     data = {
         'text': sentence.text,
         'start': sentence.start_char,

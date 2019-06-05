@@ -7,31 +7,52 @@ cwd = util.get_file_directory(__file__)
 db_path = util.get_db_path(config)
 
 
+def insert_matches(matches):
+    with sqlite3.connect(db_path) as con:
+        cur = con.cursor()
+        for match in matches:
+            query = 'insert into matches (sentence_id, data) values (?, ?)'
+            values = (
+                match['sentence_id'],
+                util.json_string(match['data']),
+            )
+            cur.execute(query, values)
+
+
 def insert_patterns(patterns):
     with sqlite3.connect(db_path) as con:
         cur = con.cursor()
         for pattern in patterns:
-            role_pattern_instance = pattern['role_pattern_instance']
-            query = 'insert into patterns (name, seed_example_id, role_pattern_instance) values (?, ?, ?)'
-            cur.execute(query, (pattern['name'], pattern['seed_example_id'], role_pattern_instance,))
+            query = 'insert into patterns (name, role_pattern_instance) values (?, ?)'
+            values = (
+                pattern['name'],
+                pattern['role_pattern_instance'],
+            )
+            cur.execute(query, values)
 
 
-def insert_training_examples(training_examples):
+def insert_training_matches(training_matches):
     with sqlite3.connect(db_path) as con:
         cur = con.cursor()
-        for training_example in training_examples:
-            slots = training_example['slots']
-            data = util.json_string({'slots': slots})
-            query = 'insert into training_examples (data, pos_or_neg, sentence_id) values (?, ?, ?)'
-            values = (data, training_example['pos_or_neg'], training_example['sentence_id'],)
+        for training_match in training_matches:
+            query = 'insert into pattern_training_matches (match_id, pattern_id, pos_or_neg) values (?, ?, ?)'
+            values = (
+                training_match['match_id'],
+                training_match['pattern_id'],
+                training_match['pos_or_neg'],
+            )
             cur.execute(query, values)
 
 
 if __name__ == '__main__':
+    matches_data_path = os.path.join(cwd, '../mock/matches.json')
+    matches = util.load_json(matches_data_path)
+    insert_matches(matches)
+
     pattern_data_path = os.path.join(cwd, '../mock/patterns.json')
     patterns = util.load_json(pattern_data_path)
     insert_patterns(patterns)
 
-    training_example_data_path = os.path.join(cwd, '../mock/training_examples.json')
-    training_examples = util.load_json(training_example_data_path)
-    insert_training_examples(training_examples)
+    training_matches = os.path.join(cwd, '../mock/pattern_training_matches.json')
+    training_matches = util.load_json(training_matches)
+    insert_training_matches(training_matches)

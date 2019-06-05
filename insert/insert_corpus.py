@@ -31,10 +31,10 @@ def insert_parsed_corpus(parsed_corpus):
                 values = (sentence_id, sqlite3.Binary(spacy_doc), sqlite3.Binary(spacy_vocab),)
                 cur.execute(query, values)
                 for token in tokens:
-                    token_i = token.pop('i')
+                    token_offset = token.pop('i')
                     token = util.json_string(token)
-                    query = 'insert into tokens(sentence_id, i, data) values (?, ?, ?)'
-                    cur.execute(query, (sentence_id, token_i, token,))
+                    query = 'insert into tokens(sentence_id, token_offset, data) values (?, ?, ?)'
+                    cur.execute(query, (sentence_id, token_offset, token,))
 
 
 if __name__ == '__main__':

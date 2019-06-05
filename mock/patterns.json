@@ -1,7 +1,6 @@
 [
   {
     "name": "pattern 1",
-    "role_pattern_instance": "bytes",
-    "seed_example_id": 1
+    "role_pattern_instance": "bytes"
   }
 ]

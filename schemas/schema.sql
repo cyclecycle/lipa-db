@@ -4,14 +4,6 @@ CREATE TABLE documents (
     data blob
 );
 
-CREATE TABLE document_linguistic_data (
-    id integer primary key,
-    document_id,
-    spacy_doc blob,
-    spacy_vocab blob,
-    foreign key(document_id) references documents(id)
-);
-
 CREATE TABLE sentences (
     id integer primary key,
     document_id integer,
@@ -31,32 +23,38 @@ CREATE TABLE sentence_linguistic_data (
 CREATE TABLE tokens (
     id integer primary key,
     sentence_id integer,
-    i integer,
+    token_offset integer,  -- Token number in sentence
     data blob,
+    foreign key(sentence_id) references sentences(id)
+);
+
+CREATE TABLE matches (
+    id integer primary key,
+    sentence_id integer not null,
+    data blob not null,
     foreign key(sentence_id) references sentences(id)
 );
 
 CREATE TABLE patterns (
     id integer primary key,
     name text,
-    seed_example_id integer,
-    role_pattern_instance blob,
-    foreign key(seed_example_id) references training_examples(id)
+    role_pattern_instance blob not null
 );
 
-CREATE TABLE training_examples (
-    id integer primary key,
-    data blob,
-    pos_or_neg text,
-    sentence_id integer,
-    foreign key(sentence_id) references sentences(id)
+CREATE TABLE pattern_training_matches (
+    match_id integer not null,
+    pattern_id integer not null,
+    pos_or_neg text not null,
+    foreign key(match_id) references matches(id)
+    foreign key(pattern_id) references patterns(id)
 );
 
-CREATE TABLE matches (
+CREATE TABLE pattern_matches (
     id integer primary key,
+    match_id integer,
     pattern_id integer,
-    sentence_id integer,
-    data blob,
-    foreign key(pattern_id) references patterns(id),
-    foreign key(sentence_id) references sentences(id)
+    foreign key(match_id) references matches(id),
+    foreign key(pattern_id) references pattern(id)
 );
+
+

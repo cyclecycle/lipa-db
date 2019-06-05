@@ -1,21 +1,37 @@
 [
   {
-    "pattern_id": 1,
-    "sentence_id": 2,
-    "match_data": {
-      "slot1": [
+    "sentence_id": 1,
+    "data": {
+      "slots": [
         {
-          "token_id": 16
-        }
-      ],
-      "slot2": [
+          "label": "arg1",
+          "tokens": [
+            {
+              "i": 3,
+              "id": 4,
+              "text": "hypothesis"
+            }
+          ]
+        },
         {
-          "token_id": 17
-        }
-      ],
-      "slot3": [
+          "label": "pred",
+          "tokens": [
+            {
+              "i": 4,
+              "id": 5,
+              "text": "was"
+            }
+          ]
+        },
         {
-          "token_id": 18
+          "label": "arg2",
+          "tokens": [
+            {
+              "i": 5,
+              "id": 6,
+              "text": "introduced"
+            }
+          ]
         }
       ]
     }
