@@ -1,0 +1,7 @@
+[
+  {
+    "id": 1,
+    "sentence_id": 1,
+    "data": "{\"slots\": {\"arg1\": [{\"token_offset\": 3, \"id\": 4, \"text\": \"hypothesis\"}], \"pred\": [{\"token_offset\": 4, \"id\": 5, \"text\": \"was\"}], \"arg2\": [{\"token_offset\": 5, \"id\": 6, \"text\": \"introduced\"}]}}"
+  }
+]

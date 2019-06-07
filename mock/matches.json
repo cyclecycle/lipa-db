@@ -2,38 +2,29 @@
   {
     "sentence_id": 1,
     "data": {
-      "slots": [
-        {
-          "label": "arg1",
-          "tokens": [
+      "slots": {
+        "arg1": [
             {
-              "i": 3,
+              "token_offset": 3,
               "id": 4,
               "text": "hypothesis"
             }
-          ]
-        },
-        {
-          "label": "pred",
-          "tokens": [
+        ],
+        "pred": [
             {
-              "i": 4,
+              "token_offset": 4,
               "id": 5,
               "text": "was"
             }
-          ]
-        },
-        {
-          "label": "arg2",
-          "tokens": [
+        ],
+        "arg2": [
             {
-              "i": 5,
+              "token_offset": 5,
               "id": 6,
               "text": "introduced"
             }
-          ]
-        }
-      ]
+        ]
+      }
     }
   }
 ]

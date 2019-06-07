@@ -8,7 +8,9 @@ tables = [
     'sentences',
     'tokens',
     'patterns',
-    'training_examples',
+    'matches',
+    'pattern_training_matches',
+    'pattern_matches',
 ]
 
 url = config['db_rest_url']

@@ -1,3 +1,4 @@
+source env/bin/activate
 echo "Removing 'databases/test.db' if it exists"
 rm databases/test.db
 echo "Initialising test.db with 'schemas/schema.sql'"
