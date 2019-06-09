@@ -1,10 +1,11 @@
 require('jest-extended')
 const axios = require('axios')
-const fs = require('fs')
-
+const util = require('../util/util')
 
 beforeAll(() => {
-  const url = 'http://localhost:8086'  // TODO import from config
+  const config = util.loadConfig()
+  const url = config.db_rest_url
+  console.log(url)
   global.url = url
 })
 
@@ -44,20 +45,17 @@ test("Fetches one document", () => {
 
 
 test("Inserts a pattern", () => {
-  expect.assertions(2)
+  expect.assertions(1)
   const url = global.url
-  const queryUrl = `${url}/patterns/`
-  const patternData = {'some': 'pattern data'}
+  const queryUrl = `${url}/patterns`
   const payload = {
     'name': 'pattern 1',
-    'pattern_data': JSON.stringify(patternData),
+    'role_pattern_instance': 'some_bytes',
   }
   return axios.post(queryUrl, payload)
     .then(response => {
       const item = response.data
-      const itemData = JSON.parse(item.pattern_data)
       expect(item).toEqual(expect.toBeObject(item))
-      expect(itemData).toEqual(expect.toBeObject())
     })
 })
 

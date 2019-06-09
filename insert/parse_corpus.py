@@ -1,10 +1,8 @@
 import os
-from config import config
 from nlp import parse
 from util import util
-from pprint import pprint
 
-
+config = util.load_config()
 cwd = util.get_file_directory(__file__)
 parser = parse.Parser()
 

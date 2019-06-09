@@ -1,9 +1,9 @@
 import os
 import sqlite3
-from config import config
 from util import util
 from parse_corpus import parse_corpus
 
+config = util.load_config()
 cwd = util.get_file_directory(__file__)
 db_path = util.get_db_path(config)
 

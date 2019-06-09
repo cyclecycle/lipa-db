@@ -1,8 +1,8 @@
 import os
 import sqlite3
-from config import config
 from util import util
 
+config = util.load_config()
 cwd = util.get_file_directory(__file__)
 db_path = util.get_db_path(config)
 
@@ -15,6 +15,18 @@ def insert_matches(matches):
             values = (
                 match['sentence_id'],
                 util.json_string(match['data']),
+            )
+            cur.execute(query, values)
+
+
+def insert_pattern_matches(matches):
+    with sqlite3.connect(db_path) as con:
+        cur = con.cursor()
+        for match in matches:
+            query = 'insert into pattern_matches (pattern_id, match_id) values (?, ?)'
+            values = (
+                match['pattern_id'],
+                match['match_id'],
             )
             cur.execute(query, values)
 
@@ -56,3 +68,7 @@ if __name__ == '__main__':
     training_matches = os.path.join(cwd, '../mock/pattern_training_matches.json')
     training_matches = util.load_json(training_matches)
     insert_training_matches(training_matches)
+
+    pattern_matches_path = os.path.join(cwd, '../mock/pattern_matches.json')
+    pattern_matches = util.load_json(pattern_matches_path)
+    insert_pattern_matches(pattern_matches)

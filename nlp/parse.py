@@ -2,8 +2,9 @@ import re
 import spacy
 from nlp.custom_tokenize import custom_tokenizer
 from spacy.tokens import Doc
-from config import config
+from util import util
 
+config = util.load_config()
 
 REGEXES = {
     'parenthetic': r'(?<=\s|,|\.)(\(.+?\))(?=\s|,|\.)',

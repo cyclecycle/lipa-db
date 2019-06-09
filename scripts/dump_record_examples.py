@@ -1,7 +1,9 @@
 import os
 import requests
 import json
-from config import config
+from util import util
+
+config = util.load_config()
 
 tables = [
     'documents',
@@ -19,7 +21,7 @@ target_dir = 'databases/record_examples'
 
 for table in tables:
     query = '{}/?id=1'.format(table)
-    query_url = '{0}{1}'.format(url, query)
+    query_url = '{0}/{1}'.format(url, query)
     print('Querying:', query_url)
     response = requests.get(query_url)
     try:

@@ -2,6 +2,15 @@ import os
 import json
 
 
+CONFIG_PATH = 'config.json'
+
+
+def load_config():
+    with open(CONFIG_PATH) as f:
+        config = json.load(f)
+    return config
+
+
 def get_db_path(config):
     mode = config['mode']
     db_path = config['db_paths'][mode]
