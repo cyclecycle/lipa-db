@@ -1,7 +1,8 @@
 select
     documents.id,
     count(sentences.id) as n_sentences,
-    count(pattern_matches.id) as n_matches
+    count(pattern_matches.id) as n_matches,
+    documents.data
 from
     documents
     left join sentences on sentences.document_id = documents.id

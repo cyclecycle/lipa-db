@@ -29,7 +29,7 @@ getSqliteRouter({ dbPath })
   .then(router => {
     app.use(router.routes())
       .use(router.allowedMethods())
-      .use(cors({origin: '*'}))
+      .use(cors({origin: 'http://localhost:8080', 'allowHeaders': 'range', 'keepHeadersOnError': true}))
       .listen(PORT);
 
     console.log(`Listening on port: ${PORT}`);

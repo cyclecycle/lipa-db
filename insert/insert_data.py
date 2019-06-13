@@ -1,6 +1,7 @@
 import os
 import sqlite3
 from util import util
+import pickle
 
 config = util.load_config()
 cwd = util.get_file_directory(__file__)
@@ -38,7 +39,7 @@ def insert_patterns(patterns):
             query = 'insert into patterns (name, role_pattern_instance) values (?, ?)'
             values = (
                 pattern['name'],
-                pattern['role_pattern_instance'],
+                sqlite3.Binary(pickle.dumps(pattern['role_pattern_instance'])),
             )
             cur.execute(query, values)
 
