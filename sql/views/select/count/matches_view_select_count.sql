@@ -1,4 +1,5 @@
 select
-    count(id)
+    count(matches.id)
 from
-    match_view;
+    matches
+    left join sentences on matches.sentence_id = sentences.id;

@@ -62,6 +62,35 @@ test("Inserts a pattern", () => {
     })
 })
 
+test("Inserts a match", () => {
+  expect.assertions(2)
+  const url = global.url
+  const matchesUrl = `${url}/matches`
+  const payload = {
+    sentence_id: 1,
+    data: JSON.stringify({some: 'data'}),
+  }
+  return axios.post(matchesUrl, payload)
+    .then(response => {
+      const item = response.data
+      expect(item).toEqual(expect.toBeObject(item))
+      const matchId = item.id
+      return matchId
+    })
+    .then(matchId => {
+      const patternMatchesUrl = `${url}/pattern_matches`
+      const payload = {
+        'pattern_id': 2,  // Corresponds with pattern created above
+        'match_id': matchId,
+      }
+      return axios.post(patternMatchesUrl, payload)
+    })
+    .then(response => {
+      const item = response.data
+      expect(item).toEqual(expect.toBeObject(item))
+    })
+})
+
 
 // test("Deletes a pattern", () => {
 //   expect.assertions(1)
@@ -311,5 +340,23 @@ test("Fetches pattern matches in chunks until no more rows", () => {
     .then((rows) => {
       expect(rows).toEqual(expect.toBeArray())
       expect(rows.length).toBeGreaterThanOrEqual(1)
+    })
+})
+
+
+test("On delete pattern, corresponding matches are deleted", () => {
+  expect.assertions(2)
+  const url = global.url
+  const queryUrl = `${url}/patterns/?id=2`
+  return axios.delete(queryUrl)
+    .then(response => {
+      expect(response.status).toEqual(204)
+    })
+    .then(() => {
+      const matchesQueryUrl = `${url}/pattern_matches/?pattern_id=2`
+      return axios.get(matchesQueryUrl)
+        .catch(e => {
+          expect(e.response.status).toEqual(404)
+        })
     })
 })

@@ -25,11 +25,20 @@ const dbPath = 'databases/test.db'
 
 const app = new Koa();
 
-getSqliteRouter({ dbPath })
+const corsOptions = {
+  origin: '*',
+  keepHeadersOnError: true,
+}
+
+const onConnectionCallback = (db) => {
+  db.run('PRAGMA foreign_keys=ON')
+}
+
+getSqliteRouter({ dbPath, onConnectionCallback })
   .then(router => {
     app.use(router.routes())
       .use(router.allowedMethods())
-      .use(cors({origin: 'http://localhost:8080', 'allowHeaders': 'range', 'keepHeadersOnError': true}))
+      .use(cors(corsOptions))
       .listen(PORT);
 
     console.log(`Listening on port: ${PORT}`);
