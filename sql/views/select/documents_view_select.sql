@@ -1,7 +1,7 @@
 select
     documents.id,
-    count(sentences.id) as n_sentences,
-    count(pattern_matches.id) as n_matches,
+    count(distinct sentences.id) as n_sentences,
+    count(distinct pattern_matches.id) as n_matches,
     documents.data
 from
     documents

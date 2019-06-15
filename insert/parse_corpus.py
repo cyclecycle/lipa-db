@@ -67,9 +67,7 @@ def parse_record(record, id_field, content_fields):
     return parsed_record
 
 
-def parse_corpus(corpus, corpus_fields):
-    id_field = corpus_fields['idField']
-    content_fields = corpus_fields['contentFields']
+def parse_corpus(corpus, id_field, content_fields):
     parsed_corpus = [parse_record(record, id_field, content_fields) for record in corpus]
     return parsed_corpus
 
@@ -79,4 +77,6 @@ if __name__ == '__main__':
     corpus_schema_path = os.path.join(cwd, '../mock/corpus_fields.json')
     corpus = util.load_json(corpus_path)
     corpus_fields = util.load_json(corpus_schema_path)
-    parsed_corpus = parse_corpus(corpus, corpus_fields)
+    id_field = corpus_fields['idField']
+    content_fields = corpus_fields['contentFields']
+    parsed_corpus = parse_corpus(corpus, id_field, content_fields)

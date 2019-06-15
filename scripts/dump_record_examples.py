@@ -13,6 +13,11 @@ tables = [
     'matches',
     'pattern_training_matches',
     'pattern_matches',
+    'patterns_view',
+    'pattern_matches_view',
+    'documents_view',
+    'sentences_view',
+    'matches_view',
 ]
 
 url = config['db_rest_url']

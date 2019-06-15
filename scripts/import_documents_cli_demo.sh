@@ -1,0 +1,1 @@
+PYTHONPATH="." python insert/import_documents_cli.py --corpus mock/corpus2.json --id-field PMID --content-fields TI AB
