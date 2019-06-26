@@ -1,6 +1,7 @@
 [
   {
     "name": "pattern 1",
-    "role_pattern_instance": "bytes"
+    "role_pattern_instance": "bytes",
+    "token_labels": "[arg1, pred, arg2]"
   }
 ]

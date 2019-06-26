@@ -24,7 +24,7 @@ bash init_test_db.sh
 ### Start REST server:
 
 ```bash
-bash scripts/start_rest.js
+bash scripts/start_rest.sh
 ```
 
 ## Development

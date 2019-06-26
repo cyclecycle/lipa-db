@@ -1,3 +1,10 @@
+import os
+import sys
+cwd = os.path.dirname(os.path.realpath(__file__))
+root_dir = os.path.join(cwd, '..')
+sys.path.append(root_dir)
+
+
 import argparse
 from util import util
 from parse_corpus import parse_corpus
@@ -5,9 +12,9 @@ from insert_corpus import insert_parsed_corpus
 
 
 parser = argparse.ArgumentParser(description='Command-line utility to import documents into LIPA.')
-parser.add_argument('--corpus', help='Path to corpus of documents in JSON format.')
-parser.add_argument('--id-field', help='The document ID field.')
-parser.add_argument('--content-fields', nargs="*", help='The document fields containing the text content to parse and insert into the database.')
+parser.add_argument('--corpus', help='Path to corpus of documents in JSON format.', required=True)
+parser.add_argument('--id-field', help='The document ID field.', required=True)
+parser.add_argument('--content-fields', nargs='*', help='The document fields containing the text content to parse and insert into the database.', required=True)
 
 args = parser.parse_args()
 
