@@ -41,7 +41,7 @@ CREATE TABLE patterns (
     id integer primary key,
     name text,
     role_pattern_instance blob not null,
-    token_labels blob not null
+    data blob
 );
 
 CREATE TABLE pattern_training_matches (
