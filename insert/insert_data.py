@@ -36,11 +36,11 @@ def insert_patterns(patterns):
     with sqlite3.connect(db_path) as con:
         cur = con.cursor()
         for pattern in patterns:
-            query = 'insert into patterns (name, role_pattern_instance, token_labels) values (?, ?)'
+            query = 'insert into patterns (name, role_pattern_instance, data) values (?, ?, ?)'
             values = (
                 pattern['name'],
                 sqlite3.Binary(pickle.dumps(pattern['role_pattern_instance'])),
-                util.json_string(pattern['token_labels']),
+                util.json_string(pattern['data']),
             )
             cur.execute(query, values)
 
