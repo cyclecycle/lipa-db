@@ -4,6 +4,7 @@ CREATE VIEW patterns_view AS
 select
     patterns.id,
     patterns.name,
+    patterns.data,
     count(pattern_matches.id) as n_matches
 from
     patterns

@@ -6,7 +6,8 @@
   "author": "Nick Morley <nick.morley111@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start_rest": "node scripts/start_rest.js"
   },
   "dependencies": {
     "@koa/cors": "^2.2.3",
