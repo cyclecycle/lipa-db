@@ -40,7 +40,7 @@ CREATE TABLE matches (
 CREATE TABLE patterns (
     id integer primary key,
     name text,
-    role_pattern_instance blob not null,
+    role_pattern_instance blob not null,  -- Python class serialised with pickle
     data blob
 );
 

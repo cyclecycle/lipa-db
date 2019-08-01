@@ -44,6 +44,13 @@ from
     inner join sentences on matches.sentence_id = sentences.id
 ;
 
+DROP VIEW IF EXISTS pattern_matches_count_view;
+CREATE VIEW pattern_matches_count_view AS
+select
+    count(*) as 'count'
+from pattern_matches;
+
+
 DROP VIEW IF EXISTS documents_view;
 CREATE VIEW documents_view AS
 select
@@ -57,9 +64,7 @@ from
     left join matches on sentences.id = matches.sentence_id
     left join pattern_matches on matches.id = pattern_matches.match_id
 group by
-    documents.id
-order by
-    n_matches desc;
+    documents.id;
 
 DROP VIEW IF EXISTS sentences_view;
 CREATE VIEW sentences_view AS

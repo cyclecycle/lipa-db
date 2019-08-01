@@ -9,6 +9,4 @@ from
     left join matches on sentences.id = matches.sentence_id
     left join pattern_matches on matches.id = pattern_matches.match_id
 group by
-    documents.id
-order by
-    n_matches desc;
+    documents.id;

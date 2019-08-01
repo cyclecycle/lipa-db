@@ -14,9 +14,10 @@ const Koa = require('koa')
 // Init //
 //------//
 
-const dbPath = 'databases/test.db'
-  , getSqliteRouter = sqliteToRest.getSqliteRouter
-  , PORT = 8085;
+const dbFile = process.env.LIPA_SQLITE_DB_FILE || 'valence_rel_db.db';
+const dbPath = `databases/${dbFile}`
+const getSqliteRouter = sqliteToRest.getSqliteRouter
+const PORT = 8085;
 
 
 //------//
