@@ -28,17 +28,21 @@ def insert_parsed_corpus(parsed_corpus):
                     spacy_vocab = sentence.pop('spacy_vocab')
                     data = util.json_string(sentence)
                     query = 'insert into sentences(document_id, text, data) values (?, ?, ?)'
-                    values = (document_id, text, data,)
+                    values = (document_id, text, data)
                     cur.execute(query, values)
                     sentence_id = cur.lastrowid
                     query = 'insert into sentence_linguistic_data(sentence_id, spacy_doc, spacy_vocab) values (?, ?, ?)'
-                    values = (sentence_id, sqlite3.Binary(spacy_doc), sqlite3.Binary(spacy_vocab),)
+                    values = (
+                        sentence_id,
+                        sqlite3.Binary(spacy_doc),
+                        sqlite3.Binary(spacy_vocab),
+                    )
                     cur.execute(query, values)
                     for token in tokens:
                         token_offset = token.pop('i')
                         token = util.json_string(token)
                         query = 'insert into tokens(sentence_id, token_offset, data) values (?, ?, ?)'
-                        cur.execute(query, (sentence_id, token_offset, token,))
+                        cur.execute(query, (sentence_id, token_offset, token))
 
 
 if __name__ == '__main__':

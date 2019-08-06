@@ -20,7 +20,8 @@ tables = [
     'matches_view',
 ]
 
-url = config['db_rest_url']
+db_port = os.environ['DB_PORT']
+url = 'http://localhost:{}'.format(db_port)
 
 target_dir = 'databases/record_examples'
 

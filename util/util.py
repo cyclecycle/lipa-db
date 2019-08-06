@@ -12,8 +12,8 @@ def load_config():
 
 
 def get_db_path(config):
-    mode = config['mode']
-    db_path = config['db_paths'][mode]
+    db_file = os.environ['LIPA_SQLITE_DB_FILE']
+    db_path = os.path.join('databases', db_file)
     return db_path
 
 

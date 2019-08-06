@@ -1,8 +1,0 @@
-[
-  {
-    "id": 1,
-    "name": "pattern 1",
-    "data": "{\"token_labels\": [\"arg1\", \"pred\", \"arg2\"]}",
-    "n_matches": 2
-  }
-]

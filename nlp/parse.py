@@ -1,7 +1,7 @@
 import re
 import spacy
-from nlp.custom_tokenize import custom_tokenizer
 from spacy.tokens import Doc
+from nlp.custom_tokenize import custom_tokenizer
 from util import util
 
 config = util.load_config()
@@ -15,17 +15,31 @@ REGEXES = {
 
 REGEXES = {name: re.compile(regex) for name, regex in REGEXES.items()}
 
-SPACY_DISABLE = ['ner', 'entity_ruler', 'textcat', 'sentencizer', 'merge_noun_chunks', 'merge_entities', 'merge_subtokens']
+SPACY_DISABLE = [
+    'ner',
+    'entity_ruler',
+    'textcat',
+    'sentencizer',
+    'merge_noun_chunks',
+    'merge_entities',
+    'merge_subtokens',
+]
 
 
-class Parser():
-
+class Parser:
     def __init__(self):
         spacy_model = config['spacy_model']
         self.nlp = spacy.load(spacy_model, disable=SPACY_DISABLE)
         self.nlp.tokenizer = custom_tokenizer(self.nlp)
 
-    def parse(self, text, resolve_corefs=False, resolve_acros=False, coref_clusters=False):
+    def parse(
+        self,
+        text,
+        resolve_corefs=False,
+        resolve_acros=False,
+        coref_clusters=False,
+        sentence_case=False,
+    ):
         text = str(text)
         if text[-1] != '.':
             text += '.'
@@ -37,7 +51,11 @@ class Parser():
         text = re.sub(REGEXES['parenthetic'], ' ', text)
         text = re.sub(REGEXES['multispace'], ' ', text)
         text = re.sub(REGEXES['floating_punct'], '', text)
-        doc = self.nlp(text)
+        if sentence_case:
+            doc = self.nlp.make_doc(text)
+            doc = sentence_case(doc, self.nlp)
+        else:
+            doc = self.nlp(text)
         return doc
 
 
@@ -56,7 +74,7 @@ def separate_trees(doc):
         for token in doc:
             if token.dep_ == 'ROOT':
                 idxs = [w.i for w in token.subtree]
-                span = doc[min(idxs):max(idxs)]
+                span = doc[min(idxs) : max(idxs)]
                 tree = span.as_doc()
                 tree._.tree_i = tree_i
                 start_idx = min([w.idx for w in token.subtree])

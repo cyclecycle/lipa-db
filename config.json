@@ -1,14 +1,10 @@
 {
-    "mode": "prod",
-    "db_rest_url": "http://localhost:8085",
-    "db_paths": {
-        "test": "databases/test.db",
-        "prod": "databases/valence_rel_db.db"
-    },
-    "spacy_model": "en_core_web_sm",
+    "parse_record_module": "custom.custom_parse",
+    "parse_record_function_name": "parse_record",
     "spacy_token_features": [
         "tag_",
         "dep_",
         "lower_"
-    ]
+    ],
+    "spacy_model": "en_core_sci_sm"
 }

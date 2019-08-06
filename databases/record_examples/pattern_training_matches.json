@@ -1,4 +1,0 @@
-{
-  "msg": "Error while parsing query string: Column name required.\nquery string : id=1\navailable columns: match_id, pattern_id, pos_or_neg",
-  "id": "get_queryString_column-required"
-}

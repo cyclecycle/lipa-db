@@ -1,16 +1,21 @@
-import os
-from nlp import parse
+import spacy
 from util import util
-import importlib
+from custom.valence_annotator import ValenceAnnotator
+from sentence_case import sentence_case
 
-config = util.load_config()
-cwd = util.get_file_directory(__file__)
-parser = parse.Parser()
+SPACY_DISABLE = [
+    'ner',
+    'entity_ruler',
+    'textcat',
+    'sentencizer',
+    'merge_noun_chunks',
+    'merge_entities',
+    'merge_subtokens',
+]
 
-
-def parse_content(text):
-    doc = parser.parse(text)
-    return doc
+nlp = spacy.load('en_core_sci_sm', disable=SPACY_DISABLE)
+valence_annotator = ValenceAnnotator(nlp)
+nlp.add_pipe(valence_annotator, last=True)
 
 
 def get_parsed_sentences(doc):
@@ -21,8 +26,9 @@ def get_parsed_sentences(doc):
 
 
 def spacy_token_to_json(token):
-    features = config['spacy_token_features']
+    features = ['tag_', 'dep_', 'lower_']
     feature_dict = {attr: getattr(token, attr) for attr in features}
+    feature_dict['_'] = {'valence': token._.valence}
     start_idx_in_sent = token.idx - token.sent.start_char
     data = {
         'text': token.text,
@@ -36,6 +42,9 @@ def spacy_token_to_json(token):
 
 def spacy_sentence_to_json(sentence, data={}):
     doc = sentence.as_doc()
+    # Underscore attributes not copied with .as_doc()
+    for token_a, token_b in zip(sentence, doc):
+        token_b._.valence = token_a._.valence
     tokens = [spacy_token_to_json(token) for token in doc]
     data = {
         'text': sentence.text,
@@ -53,7 +62,11 @@ def parse_record(record, id_field, content_fields):
     parsed_record = {'source_document_id': int(record[id_field]), 'sections': []}
     content_sections = [record[field] for field in content_fields]
     for content, field in zip(content_sections, content_fields):
-        doc = parse_content(content)
+        if field == 'TI':
+            doc = nlp.make_doc(content)
+            doc = sentence_case(doc, nlp)
+        else:
+            doc = nlp(content)
         preprocessed_content = doc.text
         sentences = get_parsed_sentences(doc)
         sentences = [
@@ -63,30 +76,3 @@ def parse_record(record, id_field, content_fields):
             {'text': preprocessed_content, 'sentences': sentences, 'name': field}
         )
     return parsed_record
-
-
-def load_parse_record_function():
-    module_path = config['parse_record_module']
-    function_name = config['parse_record_function_name']
-    module = importlib.import_module(module_path)
-    function = getattr(module, function_name)
-    return function
-
-
-def parse_corpus(corpus, id_field, content_fields):
-    # Try to use custom parse_record, else default
-    parse_record_function = load_parse_record_function()
-    parsed_corpus = [
-        parse_record_function(record, id_field, content_fields) for record in corpus
-    ]
-    return parsed_corpus
-
-
-if __name__ == '__main__':
-    corpus_path = os.path.join(cwd, '../mock/corpus.json')
-    corpus_schema_path = os.path.join(cwd, '../mock/corpus_fields.json')
-    corpus = util.load_json(corpus_path)
-    corpus_fields = util.load_json(corpus_schema_path)
-    id_field = corpus_fields['idField']
-    content_fields = corpus_fields['contentFields']
-    parsed_corpus = parse_corpus(corpus, id_field, content_fields)
