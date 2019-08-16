@@ -14,11 +14,10 @@ CREATE TABLE sentences (
     foreign key(document_id) references documents(id) on delete cascade
 );
 
-CREATE TABLE sentence_linguistic_data (
+CREATE TABLE spacy_sentence_doc (
     id integer primary key,
     sentence_id integer,
     spacy_doc blob,
-    spacy_vocab blob,
     foreign key(sentence_id) references sentences(id) on delete cascade
 );
 

@@ -1,5 +1,4 @@
 import spacy
-from util import util
 from custom.valence_annotator import ValenceAnnotator
 from sentence_case import sentence_case
 
@@ -43,6 +42,7 @@ def spacy_token_to_json(token):
 def spacy_sentence_to_json(sentence, data={}):
     doc = sentence.as_doc()
     # Underscore attributes not copied with .as_doc()
+    # So copy them over:
     for token_a, token_b in zip(sentence, doc):
         token_b._.valence = token_a._.valence
     tokens = [spacy_token_to_json(token) for token in doc]
@@ -52,7 +52,6 @@ def spacy_sentence_to_json(sentence, data={}):
         'length': len(sentence.text),
         'tokens': tokens,
         'spacy_doc': doc.to_bytes(),
-        'spacy_vocab': doc.vocab.to_bytes(),
         **data,
     }
     return data

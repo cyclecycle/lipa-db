@@ -23,7 +23,8 @@ class ValenceAnnotator:
         for down_term in down_vocab:
             self.matcher.add('DOWN', None, [{'LOWER': down_term}])
 
-        Token.set_extension('valence', default=None)
+        # Default must be 'False' as 'None' causes 'Integer required' error:
+        Token.set_extension('valence', default=False)
         Doc.set_extension('has_valence_term', getter=self.has_valence_term)
 
     def __call__(self, doc):

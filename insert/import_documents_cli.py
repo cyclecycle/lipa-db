@@ -8,7 +8,7 @@ sys.path.append(root_dir)
 import argparse
 from util import util
 from parse_corpus import parse_corpus
-from insert_corpus import insert_parsed_corpus
+from insert_corpus import insert_parsed_corpus, db_path
 
 
 parser = argparse.ArgumentParser(description='Command-line utility to import documents into LIPA.')
@@ -25,10 +25,10 @@ content_fields = args.content_fields
 print('Loading corpus file')
 corpus = util.load_json(corpus_path)
 
-print('Parsing corpus')
-parsed_corpus = parse_corpus(corpus, id_field, content_fields)
-
-print('Inserting documents')
-insert_parsed_corpus(parsed_corpus)
+print('Parsing and inserting into {}'.format(db_path))
+for i, record in enumerate(corpus):
+    print(i + 1)
+    parsed = parse_corpus([record], id_field, content_fields)
+    insert_parsed_corpus(parsed)
 
 print('Done')
