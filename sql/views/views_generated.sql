@@ -44,6 +44,22 @@ from
     inner join sentences on matches.sentence_id = sentences.id
 ;
 
+DROP VIEW IF EXISTS pattern_training_matches_view;
+CREATE VIEW pattern_training_matches_view AS
+select
+    pattern_training_matches.pattern_id,
+    pattern_training_matches.match_id,
+    matches.id,
+    matches.sentence_id,
+    sentences.document_id,
+    matches.data "match_data",
+    sentences.data as "sentence_data"
+from
+    pattern_training_matches
+    inner join matches on pattern_training_matches.match_id = matches.id
+    inner join sentences on matches.sentence_id = sentences.id
+;
+
 DROP VIEW IF EXISTS pattern_matches_count_view;
 CREATE VIEW pattern_matches_count_view AS
 select
