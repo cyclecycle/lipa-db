@@ -17,7 +17,7 @@ const Koa = require('koa')
 const dbFile = process.env.LIPA_SQLITE_DB_FILE || 'valence_rel_db.db';
 const dbPath = `databases/${dbFile}`
 const getSqliteRouter = sqliteToRest.getSqliteRouter
-const PORT = 8085;
+const PORT = process.env.DB_PORT || 8085;
 
 
 //------//

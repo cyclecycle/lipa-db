@@ -15,6 +15,7 @@ tables = [
     'pattern_matches',
     'patterns_view',
     'pattern_matches_view',
+    'pattern_training_matches_view',
     'documents_view',
     'sentences_view',
     'matches_view',

@@ -4,8 +4,8 @@ from spacy.tokens import Doc, Token
 from util import util
 
 CWD = util.get_file_directory(__file__)
-UP_VOCAB_PATH = os.path.join(CWD, 'vocab/valence_up_expanded.txt')
-DOWN_VOCAB_PATH = os.path.join(CWD, 'vocab/valence_down_expanded.txt')
+UP_VOCAB_PATH = os.path.join(CWD, 'valence_vocab/valence_up_expanded.txt')
+DOWN_VOCAB_PATH = os.path.join(CWD, 'valence_vocab/valence_down_expanded.txt')
 
 
 class ValenceAnnotator:
@@ -25,6 +25,7 @@ class ValenceAnnotator:
 
         # Default must be 'False' as 'None' causes 'Integer required' error:
         Token.set_extension('valence', default=False)
+        Token.set_extension('has_valence', default=False)
         Doc.set_extension('has_valence_term', getter=self.has_valence_term)
 
     def __call__(self, doc):
@@ -33,6 +34,7 @@ class ValenceAnnotator:
             label = self.matcher.vocab[label].text
             token = doc[start]
             token._.set('valence', label)
+            token._.set('has_valence', True)
         return doc
 
     def has_valence_term(self, tokens):

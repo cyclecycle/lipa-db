@@ -38,7 +38,6 @@ suppress
 absent
 stop
 attenuate
-delay
 prevent
 deplete
 restrain
@@ -54,7 +53,6 @@ destroy
 hinder
 deplete
 lose
-inhibit
 disturb
 compromise
 deregulate
@@ -82,4 +80,13 @@ inactivate
 limit
 abrogate
 impair
+deficiency
+treatment
 low
+worse
+poor
+poorer
+few
+fewer
+adverse
+damage
