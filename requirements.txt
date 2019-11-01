@@ -15,7 +15,7 @@ numpy==1.16.4
 plac==0.9.6
 preshed==2.0.1
 pyrsistent==0.15.2
-python-engineio==3.8.0
+python-engineio==3.8.2.post1
 python-socketio==4.1.0
 requests==2.22.0
 six==1.12.0
